@@ -10,14 +10,16 @@
 #include <string.h>
 
 // Macros
-#define PI 3.14159
+#define PI 3.14159265
 
 // Function declarations
+void get1doub(double* a);
 void get2doubs(double* a, double* b);
 double add(double a, double b);
 double sub(double a, double b);
 double mult(double a, double b);
 double divi(double a, double b);
+double sqrt(double a);
 
 // Main function
 int main(int argc, char *argv[]) {
@@ -32,6 +34,7 @@ int main(int argc, char *argv[]) {
     printf("sub : subtraction\n");
     printf("mult : multiplication\n");
     printf("divi : division\n");
+    printf("sqrt : square root\n");
     printf("q : quit\n");
     printf("\n");
     
@@ -60,6 +63,11 @@ int main(int argc, char *argv[]) {
       get2doubs(&a, &b);
       double out = divi(a, b);
       printf("result: %lf\n", out);
+    } else if (strcmp(temp, "sqrt\n") == 0) {
+      printf("√a\n");
+      get1doub(&a);
+      double out = sqrt(a);
+      printf("result: %lf\n", out);
     } else {
       val = 0;
     }
@@ -67,6 +75,11 @@ int main(int argc, char *argv[]) {
   }
 
   return 0;
+}
+
+void get1doub(double* a) {
+  printf("a : ");
+  scanf("%lf", a);
 }
 
 void get2doubs(double* a, double* b) {
@@ -90,4 +103,15 @@ double mult(double a, double b) {
 
 double divi(double a, double b) {
   return a / b;
+}
+
+double sqrt(double a) {
+  double root = a / 3;
+  if (a <= 0) {
+    return 0;
+  }
+  for (int i = 0; i < 32; i++) {
+    root = (root + a / root) / 2;
+  }
+  return root;
 }
